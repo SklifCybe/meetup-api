@@ -7,19 +7,23 @@ import {
     ParseIntPipe,
     Patch,
     Post,
+    Query,
 } from '@nestjs/common';
 
 import { CreateMeetupDto } from './dto/create-meetup.dto';
+import { PageOptionDto } from './dto/page-option.dto';
 import { UpdateMeetupDto } from './dto/update-meetup.dto';
 import { MeetupService } from './meetup.service';
+import { RemoveQuotesPipe } from './pipe/remove-quotes.pipe';
 
 @Controller('meetup')
 export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
+    // todo: add pagination and sort
     @Get()
-    async getAll() {
-        return this.meetupService.findAll();
+    async getAll(@Query(RemoveQuotesPipe) pageOptionDto: PageOptionDto) {
+        return this.meetupService.findAll(pageOptionDto);
     }
 
     @Get(':id')

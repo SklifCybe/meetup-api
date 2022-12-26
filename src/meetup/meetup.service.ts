@@ -6,6 +6,7 @@ import { CreateMeetupDto } from './dto/create-meetup.dto';
 import { UpdateMeetupDto } from './dto/update-meetup.dto';
 import { MeetupEntity } from './entities/meetup.entity';
 import { ErrorMessageMeetup } from './constants/error-message-meetup';
+import { PageOptionDto } from './dto/page-option.dto';
 
 @Injectable()
 export class MeetupService {
@@ -14,8 +15,8 @@ export class MeetupService {
         private readonly meetupRepository: Repository<MeetupEntity>,
     ) {}
 
-    async findAll() {
-        return this.meetupRepository.find();
+    async findAll(pageOptionDto: PageOptionDto) {
+        return this.meetupRepository.findBy(pageOptionDto);
     }
 
     async findById(id: number) {
