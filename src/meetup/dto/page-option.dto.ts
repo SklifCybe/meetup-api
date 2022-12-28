@@ -1,7 +1,8 @@
-import { Transform, Type } from 'class-transformer';
 import { PartialType } from '@nestjs/swagger';
+import { Transform, Type } from 'class-transformer';
 import { IsISO8601, IsOptional, IsString, IsInt, IsEnum, Min, Max } from 'class-validator';
 
+import { Order } from '../../types/order';
 import { MeetupEntity } from '../entities/meetup.entity';
 import { MeetupFields } from '../../types/meetup-fields';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants/page';

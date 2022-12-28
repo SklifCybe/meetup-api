@@ -1,8 +1,8 @@
 import { OmitType } from '@nestjs/swagger';
 import { IsISO8601, IsString, IsNotEmpty } from 'class-validator';
 
-import { MeetupEntity } from '../entities/meetup.entity';
 import { MeetupFields } from '../../types/meetup-fields';
+import { MeetupEntity } from '../entities/meetup.entity';
 
 export class CreateMeetupDto extends OmitType(MeetupEntity, [
     MeetupFields.Id,
