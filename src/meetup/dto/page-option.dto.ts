@@ -4,7 +4,7 @@ import { IsISO8601, IsOptional, IsString, IsInt, IsEnum, Min, Max } from 'class-
 
 import { MeetupEntity } from '../entities/meetup.entity';
 import { MeetupFields } from '../../types/meetup-fields';
-import { Order } from '../../types/order';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants/page';
 
 export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
@@ -41,17 +41,15 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsEnum(Order)
     public order?: Order = Order.Asc;
 
-    // todo: maybe remove magic number and transfer to constants
     @IsOptional()
     @Type(() => Number)
     @IsInt()
-    public page?: number = 1;
+    public page?: number = DEFAULT_PAGE_NUMBER;
     
-    // todo: maybe remove magic number and transfer to constants
     @IsOptional()
     @Type(() => Number)
     @Min(1)
     @Max(50)
     @IsInt()
-    public size?: number = 10;
+    public size?: number = DEFAULT_PAGE_SIZE;
 }
