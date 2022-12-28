@@ -7,30 +7,29 @@ import { MeetupFields } from '../../types/meetup-fields';
 import { Order } from '../../types/order';
 
 export class PageOptionDto extends PartialType(MeetupEntity) {
-    // todo: under all properties decorator isOptional should stand. check every dto
+    @IsOptional()
     @Type(() => Number)
     @IsInt()
-    @IsOptional()
     public id?: number;
 
-    @IsString()
     @IsOptional()
+    @IsString()
     public name?: string;
 
-    @IsString()
     @IsOptional()
+    @IsString()
     public description?: string;
 
-    @IsString()
     @IsOptional()
+    @IsString()
     public keywords?: string;
 
-    @IsISO8601()
     @IsOptional()
+    @IsISO8601()
     public time?: Date;
 
-    @IsString()
     @IsOptional()
+    @IsString()
     public location?: string;
 
     @IsOptional()
@@ -39,6 +38,5 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
 
     @IsOptional()
     @IsEnum(Order)
-    // todo: add default value. then you can don't check if sort has exist or not. 
     public order?: Order = Order.Asc;
 }
