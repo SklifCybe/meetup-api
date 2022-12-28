@@ -5,17 +5,17 @@ import { CreateMeetupDto } from './create-meetup.dto';
 
 export class UpdateMeetupDto extends PartialType(CreateMeetupDto) {
     @IsOptional()
-    name?: string;
+    public name?: string;
     
     @IsOptional()
-    description?: string;
+    public description?: string;
 
     @IsOptional()
-    keywords?: string;
+    public keywords?: string;
 
     @IsOptional()
-    time?: Date;
+    public time?: Date;
 
     @IsOptional()
-    location?: string;
+    public location?: string;
 }

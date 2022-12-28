@@ -2,24 +2,27 @@ import { OmitType } from '@nestjs/swagger';
 import { IsISO8601, IsString, IsNotEmpty } from 'class-validator';
 
 import { MeetupEntity } from '../entities/meetup.entity';
+import { MeetupFields } from '../../types/meetup-fields';
 
-export class CreateMeetupDto extends OmitType(MeetupEntity, ['id'] as const) {
+export class CreateMeetupDto extends OmitType(MeetupEntity, [
+    MeetupFields.Id,
+] as const) {
     @IsString()
     @IsNotEmpty()
-    name: string;
+    public name: string;
 
     @IsString()
     @IsNotEmpty()
-    description: string;
+    public description: string;
 
     @IsString()
     @IsNotEmpty()
-    keywords: string;
+    public keywords: string;
 
     @IsISO8601()
-    time: Date;
+    public time: Date;
 
     @IsString()
     @IsNotEmpty()
-    location: string;
+    public location: string;
 }
