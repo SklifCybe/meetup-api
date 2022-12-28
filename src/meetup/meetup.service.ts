@@ -16,7 +16,14 @@ export class MeetupService {
     ) {}
 
     async findAll(pageOptionDto: PageOptionDto) {
-        return this.meetupRepository.findBy(pageOptionDto);
+        const { sort, order, ...meetup } = pageOptionDto;
+
+        return this.meetupRepository.find({
+            where: meetup,
+            order: {
+                [sort]: order,
+            },
+        });
     }
 
     async findById(id: number) {

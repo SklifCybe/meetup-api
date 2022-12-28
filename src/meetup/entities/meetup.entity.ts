@@ -1,24 +1,27 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+import { MeetupFields } from '../../types/meetup-fields';
+
 @Entity()
 export class MeetupEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    [MeetupFields.Id]: number;
 
     @Column()
-    name: string;
+    [MeetupFields.Name]: string;
 
     // todo: maybe add theme like union type [programming, hr, ...other]
 
     @Column()
-    description: string;
+    [MeetupFields.Description]: string;
 
     @Column()
-    keywords: string;
+    // todo: maybe create other table
+    [MeetupFields.Keywords]: string;
 
     @Column({ type: 'timestamptz' })
-    time: Date;
+    [MeetupFields.Time]: Date;
 
     @Column()
-    location: string;
+    [MeetupFields.Location]: string;
 }
