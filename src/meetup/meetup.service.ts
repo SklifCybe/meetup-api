@@ -7,6 +7,7 @@ import { UpdateMeetupDto } from './dto/update-meetup.dto';
 import { MeetupEntity } from './entities/meetup.entity';
 import { ErrorMessageMeetup } from './constants/error-message-meetup';
 import { PageOptionDto } from './dto/page-option.dto';
+import { PageDto } from './dto/page.dto';
 
 @Injectable()
 export class MeetupService {
@@ -16,13 +17,26 @@ export class MeetupService {
     ) {}
 
     async findAll(pageOptionDto: PageOptionDto) {
-        const { sort, order, ...meetup } = pageOptionDto;
+        const { sort, order, page, size, ...meetupFields } = pageOptionDto;
 
-        return this.meetupRepository.find({
-            where: meetup,
-            order: {
-                [sort]: order,
+        const skip = (page - 1) * size;
+
+        const [meetups, meetupCount] = await this.meetupRepository.findAndCount(
+            {
+                where: meetupFields,
+                order: {
+                    [sort]: order,
+                },
+                skip,
+                take: size,
             },
+        );
+
+        return new PageDto({
+            meetups,
+            meetupCount,
+            page,
+            size,
         });
     }
 

@@ -20,7 +20,6 @@ import { RemoveQuotesPipe } from './pipe/remove-quotes.pipe';
 export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
-    // todo: add pagination and sort
     @Get()
     async getAll(@Query(RemoveQuotesPipe) pageOptionDto: PageOptionDto) {
         return this.meetupService.findAll(pageOptionDto);
