@@ -51,7 +51,7 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     public sort?: MeetupFields = MeetupFields.Id;
 
     @IsOptional()
-    @Transform(({ value }: { value: string }) => value.toUpperCase())
+    @Transform(({ value }: { value: string }) => value.toLowerCase())
     @IsEnum(Order)
     public order?: Order = Order.Asc;
 
