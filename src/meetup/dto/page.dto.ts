@@ -1,4 +1,4 @@
-import { MeetupEntity } from '../entities/meetup.entity';
+import { MeetupEntity } from '../entity/meetup.entity';
 
 type PageDtoParameters = {
     meetups: MeetupEntity[];

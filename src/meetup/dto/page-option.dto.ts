@@ -1,11 +1,19 @@
 import { PartialType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsISO8601, IsOptional, IsString, IsInt, IsEnum, Min, Max } from 'class-validator';
+import {
+    IsISO8601,
+    IsOptional,
+    IsString,
+    IsInt,
+    IsEnum,
+    Min,
+    Max,
+} from 'class-validator';
 
 import { Order } from '../../types/order';
-import { MeetupEntity } from '../entities/meetup.entity';
 import { MeetupFields } from '../../types/meetup-fields';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants/page';
+import { MeetupEntity } from '../entity/meetup.entity';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constant/page';
 
 export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
@@ -38,7 +46,7 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     public sort?: MeetupFields = MeetupFields.Id;
 
     @IsOptional()
-    @Transform(({ value }: { value: string}) => value.toUpperCase())
+    @Transform(({ value }: { value: string }) => value.toUpperCase())
     @IsEnum(Order)
     public order?: Order = Order.Asc;
 
@@ -46,7 +54,7 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     @Type(() => Number)
     @IsInt()
     public page?: number = DEFAULT_PAGE_NUMBER;
-    
+
     @IsOptional()
     @Type(() => Number)
     @Min(1)

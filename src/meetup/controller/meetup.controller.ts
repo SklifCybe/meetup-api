@@ -10,11 +10,11 @@ import {
     Query,
 } from '@nestjs/common';
 
-import { MeetupService } from './meetup.service';
-import { PageOptionDto } from './dto/page-option.dto';
-import { CreateMeetupDto } from './dto/create-meetup.dto';
-import { UpdateMeetupDto } from './dto/update-meetup.dto';
-import { RemoveQuotesPipe } from './pipe/remove-quotes.pipe';
+import { MeetupService } from '../service/meetup.service';
+import { PageOptionDto } from '../dto/page-option.dto';
+import { CreateMeetupDto } from '../dto/create-meetup.dto';
+import { UpdateMeetupDto } from '../dto/update-meetup.dto';
+import { RemoveQuotesPipe } from '../pipe/remove-quotes.pipe';
 
 @Controller('meetup')
 export class MeetupController {
