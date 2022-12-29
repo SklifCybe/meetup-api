@@ -11,8 +11,9 @@ import {
 } from 'class-validator';
 
 import { Order } from '../../types/order';
-import { MeetupFields } from '../../types/meetup-fields';
 import { MeetupEntity } from '../entity/meetup.entity';
+import { MeetupThemes } from '../../types/meetup-themes';
+import { MeetupFields } from '../../types/meetup-fields';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constant/page';
 
 export class PageOptionDto extends PartialType(MeetupEntity) {
@@ -24,6 +25,10 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
     @IsString()
     public name?: string;
+
+    @IsOptional()
+    @IsEnum(MeetupThemes)
+    public theme?: MeetupThemes;
 
     @IsOptional()
     @IsString()

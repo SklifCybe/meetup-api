@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 import { MeetupFields } from '../../types/meetup-fields';
+import { MeetupThemes } from '../../types/meetup-themes';
 
 @Entity()
 export class MeetupEntity {
@@ -10,7 +11,8 @@ export class MeetupEntity {
     @Column()
     [MeetupFields.Name]: string;
 
-    // todo: maybe add theme like union type [programming, hr, ...other]
+    @Column({ type: 'enum', enum: MeetupThemes })
+    [MeetupFields.Theme]: MeetupThemes;
 
     @Column()
     [MeetupFields.Description]: string;
