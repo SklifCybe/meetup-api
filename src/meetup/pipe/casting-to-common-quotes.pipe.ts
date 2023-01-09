@@ -2,9 +2,8 @@ import { PipeTransform, Injectable } from '@nestjs/common';
 
 import { PageOptionDto } from '../dto/page-option.dto';
 
-// todo: think about naming
 @Injectable()
-export class RemoveQuotesPipe implements PipeTransform {
+export class CastingToCommonQuotesPipe implements PipeTransform {
     transform(options: PageOptionDto) {
         const result: Partial<PageOptionDto> = {};
 
