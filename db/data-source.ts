@@ -3,6 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 config();
 
+// todo: transfer db to src folder
 export const dataSourceOptions: DataSourceOptions = {
     type: 'postgres',
     host: process.env.DB_HOST,
