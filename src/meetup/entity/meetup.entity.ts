@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Transform } from 'class-transformer';
 
+import { KeywordEntity } from './keyword.entity';
 import { MeetupFields } from '../../types/meetup-fields';
 import { MeetupThemes } from '../../types/meetup-themes';
 
@@ -17,9 +24,13 @@ export class MeetupEntity {
     @Column()
     [MeetupFields.Description]: string;
 
-    @Column()
-    // todo: maybe create other table
-    [MeetupFields.Keywords]: string;
+    @OneToMany(() => KeywordEntity, (keyword) => keyword.meetup, {
+        eager: true,
+    })
+    @Transform(({ value }: { value: KeywordEntity[] }) =>
+        value.map(({ name }) => name),
+    )
+    [MeetupFields.Keywords]: string[] | string;
 
     @Column({ type: 'timestamptz' })
     [MeetupFields.Time]: Date;

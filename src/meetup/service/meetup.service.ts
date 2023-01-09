@@ -5,6 +5,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PageDto } from '../dto/page.dto';
 import { PageOptionDto } from '../dto/page-option.dto';
 import { MeetupEntity } from '../entity/meetup.entity';
+import { KeywordEntity } from '../entity/keyword.entity';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 import { ErrorMessageMeetup } from '../constant/error-message-meetup';
@@ -14,6 +15,8 @@ export class MeetupService {
     constructor(
         @InjectRepository(MeetupEntity)
         private readonly meetupRepository: Repository<MeetupEntity>,
+        @InjectRepository(KeywordEntity)
+        private readonly keywordRepository: Repository<KeywordEntity>,
     ) {}
 
     async findAll(pageOptionDto: PageOptionDto) {
@@ -42,7 +45,7 @@ export class MeetupService {
 
     async findById(id: number) {
         try {
-            const meetup = await this.meetupRepository.findOneByOrFail({ id });
+            const meetup = await this.meetupRepository.findOneByOrFail({ id })
 
             return meetup;
         } catch {
@@ -51,9 +54,17 @@ export class MeetupService {
     }
 
     async registrationNewMeetup(createMeetupDto: CreateMeetupDto) {
-        const newMeetup = this.meetupRepository.create(createMeetupDto);
+        const { keywords, ...meetup } = createMeetupDto;
 
-        return this.meetupRepository.save(newMeetup);
+        const newMeetup = this.meetupRepository.create(meetup);
+        await this.meetupRepository.save(newMeetup);
+
+        const generatedKeywords = this.generateKeywords(keywords, newMeetup);
+
+        const newKeywords = this.keywordRepository.create(generatedKeywords);
+        await this.keywordRepository.save(newKeywords);
+
+        return this.findById(newMeetup.id);
     }
 
     async edit(id: number, updateMeetupDto: UpdateMeetupDto) {
@@ -71,5 +82,13 @@ export class MeetupService {
         const meetup = await this.findById(id);
 
         return this.meetupRepository.remove(meetup);
+    }
+    
+    // todo: maybe transfer to utils
+    private generateKeywords(keywords: string[], meetup: MeetupEntity) {
+        return keywords.map((keyword) => ({
+            name: keyword,
+            meetup,
+        }));
     }
 }

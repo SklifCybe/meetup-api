@@ -36,7 +36,7 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
 
     @IsOptional()
     @IsString()
-    public keywords?: string;
+    public override keywords?: string;
 
     @IsOptional()
     @IsISO8601()

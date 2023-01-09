@@ -1,9 +1,9 @@
 import { OmitType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsISO8601, IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { IsISO8601, IsString, IsNotEmpty, IsEnum, IsArray } from 'class-validator';
 
-import { MeetupFields } from '../../types/meetup-fields';
 import { MeetupEntity } from '../entity/meetup.entity';
+import { MeetupFields } from '../../types/meetup-fields';
 import { MeetupThemes } from '../../types/meetup-themes';
 
 export class CreateMeetupDto extends OmitType(MeetupEntity, [
@@ -22,9 +22,9 @@ export class CreateMeetupDto extends OmitType(MeetupEntity, [
     @IsNotEmpty()
     public description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    public keywords: string;
+    @IsArray()
+    @IsString({ each: true })
+    public override keywords: string[];
 
     @IsISO8601()
     public time: Date;

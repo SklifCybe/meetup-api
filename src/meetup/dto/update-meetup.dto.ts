@@ -15,7 +15,7 @@ export class UpdateMeetupDto extends PartialType(CreateMeetupDto) {
     public description?: string;
 
     @IsOptional()
-    public keywords?: string;
+    public keywords?: string[];
 
     @IsOptional()
     public time?: Date;

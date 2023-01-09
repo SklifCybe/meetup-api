@@ -1,5 +1,6 @@
 import {
     Body,
+    ClassSerializerInterceptor,
     Controller,
     Delete,
     Get,
@@ -8,15 +9,17 @@ import {
     Patch,
     Post,
     Query,
+    UseInterceptors,
 } from '@nestjs/common';
 
-import { MeetupService } from '../service/meetup.service';
 import { PageOptionDto } from '../dto/page-option.dto';
+import { MeetupService } from '../service/meetup.service';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 import { RemoveQuotesPipe } from '../pipe/remove-quotes.pipe';
 
 @Controller('meetup')
+@UseInterceptors(ClassSerializerInterceptor)
 export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
