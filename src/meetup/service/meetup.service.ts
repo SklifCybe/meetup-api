@@ -8,6 +8,7 @@ import { MeetupEntity } from '../entity/meetup.entity';
 import { KeywordEntity } from '../entity/keyword.entity';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
+import { generateKeywords } from '../../utils/generate-keywords';
 import { ErrorMessageMeetup } from '../constant/error-message-meetup';
 
 @Injectable()
@@ -59,7 +60,7 @@ export class MeetupService {
         const newMeetup = this.meetupRepository.create(meetup);
         await this.meetupRepository.save(newMeetup);
 
-        const generatedKeywords = this.generateKeywords(keywords, newMeetup);
+        const generatedKeywords = generateKeywords(keywords, newMeetup);
 
         const newKeywords = this.keywordRepository.create(generatedKeywords);
         await this.keywordRepository.save(newKeywords);
@@ -82,13 +83,5 @@ export class MeetupService {
         const meetup = await this.findById(id);
 
         return this.meetupRepository.remove(meetup);
-    }
-    
-    // todo: maybe transfer to utils
-    private generateKeywords(keywords: string[], meetup: MeetupEntity) {
-        return keywords.map((keyword) => ({
-            name: keyword,
-            meetup,
-        }));
     }
 }
