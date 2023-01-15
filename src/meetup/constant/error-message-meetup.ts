@@ -1,3 +1,3 @@
-export const ErrorMessageMeetup = {
-    notFound: 'Meetup not found',
-};
+export enum ErrorMessageMeetup {
+    NotFound = 'Meetup not found',
+}

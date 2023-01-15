@@ -2,8 +2,8 @@ import { Transform } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { KeywordEntity } from './keyword.entity';
-import { MeetupFields } from '../../types/meetup-fields';
-import { MeetupThemes } from '../../types/meetup-themes';
+import { MeetupFields } from '../constant/meetup-fields';
+import { MeetupThemes } from '../constant/meetup-themes';
 
 @Entity()
 export class MeetupEntity {

@@ -4,9 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import type { FindOptionsWhere } from 'typeorm';
 
-import { Order } from '../../types/order';
+import { Order } from '../constant/order';
 import { MeetupEntity } from '../entity/meetup.entity';
-import { MeetupFields } from '../../types/meetup-fields';
+import { MeetupFields } from '../constant/meetup-fields';
 
 @Injectable()
 export class MeetupRepository {

@@ -45,7 +45,7 @@ export class MeetupService {
 
             return meetup;
         } catch {
-            throw new NotFoundException(ErrorMessageMeetup.notFound);
+            throw new NotFoundException(ErrorMessageMeetup.NotFound);
         }
     }
 

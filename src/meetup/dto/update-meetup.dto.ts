@@ -2,7 +2,7 @@ import { IsOptional } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 
 import { CreateMeetupDto } from './create-meetup.dto';
-import { MeetupThemes } from '../../types/meetup-themes';
+import { MeetupThemes } from '../constant/meetup-themes';
 
 export class UpdateMeetupDto extends PartialType(CreateMeetupDto) {
     @IsOptional()

@@ -10,11 +10,11 @@ import {
     Max,
 } from 'class-validator';
 
-import { Order } from '../../types/order';
+import { Order } from '../constant/order';
+import { DefaultPage } from '../constant/page';
 import { MeetupEntity } from '../entity/meetup.entity';
-import { MeetupThemes } from '../../types/meetup-themes';
-import { MeetupFields } from '../../types/meetup-fields';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constant/page';
+import { MeetupThemes } from '../constant/meetup-themes';
+import { MeetupFields } from '../constant/meetup-fields';
 
 export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
@@ -58,12 +58,12 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
     @Type(() => Number)
     @IsInt()
-    public page?: number = DEFAULT_PAGE_NUMBER;
+    public page?: number = DefaultPage.Number;
 
     @IsOptional()
     @Type(() => Number)
     @Min(1)
     @Max(50)
     @IsInt()
-    public size?: number = DEFAULT_PAGE_SIZE;
+    public size?: number = DefaultPage.Size;
 }
