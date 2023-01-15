@@ -2,22 +2,21 @@ import { Transform } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { KeywordEntity } from './keyword.entity';
-import { MeetupFields } from '../constant/meetup-fields';
 import { MeetupThemes } from '../constant/meetup-themes';
 
 @Entity()
 export class MeetupEntity {
     @PrimaryGeneratedColumn()
-    [MeetupFields.Id]: number;
+    public readonly id: number;
 
     @Column()
-    [MeetupFields.Name]: string;
+    public readonly name: string;
 
     @Column({ type: 'enum', enum: MeetupThemes })
-    [MeetupFields.Theme]: MeetupThemes;
+    public readonly theme: MeetupThemes;
 
     @Column()
-    [MeetupFields.Description]: string;
+    public readonly description: string;
 
     @OneToMany(() => KeywordEntity, (keyword) => keyword.meetup, {
         eager: true,
@@ -25,11 +24,11 @@ export class MeetupEntity {
     @Transform(({ value }: { value: KeywordEntity[] }) =>
         value.map(({ name }) => name),
     )
-    [MeetupFields.Keywords]: string[] | string;
+    public readonly keywords: string[] | string;
 
     @Column({ type: 'timestamptz' })
-    [MeetupFields.Time]: Date;
+    public readonly time: Date;
 
     @Column()
-    [MeetupFields.Location]: string;
+    public readonly location: string;
 }

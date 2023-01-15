@@ -12,6 +12,8 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 
+import { PageDto } from '../dto/page.dto';
+import { MeetupEntity } from '../entity/meetup.entity';
 import { PageOptionDto } from '../dto/page-option.dto';
 import { MeetupService } from '../service/meetup.service';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
@@ -24,30 +26,38 @@ export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
     @Get()
-    async getAll(@Query(CastingToCommonQuotesPipe) pageOptionDto: PageOptionDto) {
+    public async getAll(
+        @Query(CastingToCommonQuotesPipe) pageOptionDto: PageOptionDto,
+    ): Promise<PageDto> {
         return this.meetupService.findAll(pageOptionDto);
     }
 
     @Get(':id')
-    async getOneById(@Param('id', ParseIntPipe) id: number) {
+    public async getOneById(
+        @Param('id', ParseIntPipe) id: number,
+    ): Promise<MeetupEntity> {
         return this.meetupService.findById(id);
     }
 
     @Post()
-    async create(@Body() createMeetupDto: CreateMeetupDto) {
+    public async create(
+        @Body() createMeetupDto: CreateMeetupDto,
+    ): Promise<MeetupEntity> {
         return this.meetupService.registrationNewMeetup(createMeetupDto);
     }
 
     @Patch(':id')
-    async edit(
+    public async edit(
         @Param('id', ParseIntPipe) id: number,
         @Body() updateMeetupDto: UpdateMeetupDto,
-    ) {
+    ): Promise<MeetupEntity> {
         return this.meetupService.edit(id, updateMeetupDto);
     }
 
     @Delete(':id')
-    async remove(@Param('id', ParseIntPipe) id: number) {
+    public async remove(
+        @Param('id', ParseIntPipe) id: number,
+    ): Promise<MeetupEntity> {
         return this.meetupService.remove(id);
     }
 }

@@ -4,7 +4,7 @@ import { PageOptionDto } from '../dto/page-option.dto';
 
 @Injectable()
 export class CastingToCommonQuotesPipe implements PipeTransform {
-    transform(options: PageOptionDto) {
+    transform(options: PageOptionDto): PageOptionDto {
         const result: Partial<PageOptionDto> = {};
 
         Object.keys(options).forEach((key) => {

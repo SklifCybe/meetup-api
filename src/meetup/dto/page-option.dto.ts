@@ -20,50 +20,50 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
     @Type(() => Number)
     @IsInt()
-    public id?: number;
+    public readonly id?: number;
 
     @IsOptional()
     @IsString()
-    public name?: string;
+    public readonly name?: string;
 
     @IsOptional()
     @IsEnum(MeetupThemes)
-    public theme?: MeetupThemes;
+    public readonly theme?: MeetupThemes;
 
     @IsOptional()
     @IsString()
-    public description?: string;
+    public readonly description?: string;
 
     @IsOptional()
     @IsString()
-    public override keywords?: string;
+    public override readonly keywords?: string;
 
     @IsOptional()
     @IsISO8601()
-    public time?: Date;
+    public readonly time?: Date;
 
     @IsOptional()
     @IsString()
-    public location?: string;
+    public readonly location?: string;
 
     @IsOptional()
     @IsEnum(MeetupFields)
-    public sort?: MeetupFields = MeetupFields.Id;
+    public readonly sort?: MeetupFields = MeetupFields.Id;
 
     @IsOptional()
     @Transform(({ value }: { value: string }) => value.toLowerCase())
     @IsEnum(Order)
-    public order?: Order = Order.Asc;
+    public readonly order?: Order = Order.Asc;
 
     @IsOptional()
     @Type(() => Number)
     @IsInt()
-    public page?: number = DefaultPage.Number;
+    public readonly page?: number = DefaultPage.Number;
 
     @IsOptional()
     @Type(() => Number)
     @Min(1)
     @Max(50)
     @IsInt()
-    public size?: number = DefaultPage.Size;
+    public readonly size?: number = DefaultPage.Size;
 }

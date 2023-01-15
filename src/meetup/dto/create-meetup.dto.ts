@@ -18,25 +18,25 @@ export class CreateMeetupDto extends OmitType(MeetupEntity, [
 ] as const) {
     @IsString()
     @IsNotEmpty()
-    public name: string;
+    public readonly name: string;
 
     @Type(() => String)
     @Transform(({ value }: { value: string }) => value.toLowerCase())
     @IsEnum(MeetupThemes)
-    public theme: MeetupThemes;
+    public readonly theme: MeetupThemes;
 
     @IsString()
     @IsNotEmpty()
-    public description: string;
+    public readonly description: string;
 
     @IsString({ each: true })
     @ArrayUnique()
-    public keywords: string[];
+    public readonly keywords: string[];
 
     @IsISO8601()
-    public time: Date;
+    public readonly time: Date;
 
     @IsString()
     @IsNotEmpty()
-    public location: string;
+    public readonly location: string;
 }

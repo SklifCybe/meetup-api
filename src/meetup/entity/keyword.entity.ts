@@ -8,14 +8,14 @@ import { MeetupEntity } from './meetup.entity';
 export class KeywordEntity {
     @Exclude()
     @PrimaryGeneratedColumn()
-    id: number;
+    public readonly id: number;
 
     @Column()
     @Transform(({ value }) => value)
-    name: string;
+    public readonly name: string;
 
     @ManyToOne(() => MeetupEntity, (meetup) => meetup.keywords, {
         onDelete: 'CASCADE',
     })
-    meetup: MeetupEntity;
+    public readonly meetup: MeetupEntity;
 }

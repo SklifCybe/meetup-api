@@ -29,7 +29,7 @@ export class PageDto {
         this.meta = meta;
     }
 
-    private calculatePageCount(meetupCount: number, size: number) {
+    private calculatePageCount(meetupCount: number, size: number): number {
         return Math.ceil(meetupCount / size);
     }
 }

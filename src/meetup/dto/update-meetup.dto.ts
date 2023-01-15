@@ -6,20 +6,20 @@ import { MeetupThemes } from '../constant/meetup-themes';
 
 export class UpdateMeetupDto extends PartialType(CreateMeetupDto) {
     @IsOptional()
-    public name?: string;
+    public readonly name?: string;
 
     @IsOptional()
-    public theme?: MeetupThemes;
+    public readonly theme?: MeetupThemes;
 
     @IsOptional()
-    public description?: string;
+    public readonly description?: string;
 
     @IsOptional()
-    public keywords?: string[];
+    public readonly keywords?: string[];
 
     @IsOptional()
-    public time?: Date;
+    public readonly time?: Date;
 
     @IsOptional()
-    public location?: string;
+    public readonly location?: string;
 }
