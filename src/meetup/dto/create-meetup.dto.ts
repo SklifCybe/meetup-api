@@ -1,13 +1,20 @@
 import { OmitType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsISO8601, IsString, IsNotEmpty, IsEnum, ArrayUnique } from 'class-validator';
+import {
+    IsISO8601,
+    IsString,
+    IsNotEmpty,
+    IsEnum,
+    ArrayUnique,
+} from 'class-validator';
 
 import { MeetupEntity } from '../entity/meetup.entity';
 import { MeetupFields } from '../../types/meetup-fields';
 import { MeetupThemes } from '../../types/meetup-themes';
 
 export class CreateMeetupDto extends OmitType(MeetupEntity, [
-    MeetupFields.Id, MeetupFields.Keywords
+    MeetupFields.Id,
+    MeetupFields.Keywords,
 ] as const) {
     @IsString()
     @IsNotEmpty()
