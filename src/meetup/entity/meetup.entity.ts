@@ -1,10 +1,5 @@
-import {
-    Column,
-    Entity,
-    OneToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
 import { Transform } from 'class-transformer';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { KeywordEntity } from './keyword.entity';
 import { MeetupFields } from '../../types/meetup-fields';
