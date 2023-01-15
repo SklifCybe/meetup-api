@@ -1,39 +1,34 @@
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { PageDto } from '../dto/page.dto';
-import { PageOptionDto } from '../dto/page-option.dto';
 import { MeetupEntity } from '../entity/meetup.entity';
-import { KeywordEntity } from '../entity/keyword.entity';
+import { PageOptionDto } from '../dto/page-option.dto';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 import { generateKeywords } from '../../utils/generate-keywords';
+import { MeetupRepository } from '../repository/meetup.repository';
+import { KeywordRepository } from '../repository/keyword.repository';
 import { ErrorMessageMeetup } from '../constant/error-message-meetup';
+import { KeywordEntity } from '../entity/keyword.entity';
 
 @Injectable()
 export class MeetupService {
     constructor(
-        @InjectRepository(MeetupEntity)
-        private readonly meetupRepository: Repository<MeetupEntity>,
-        @InjectRepository(KeywordEntity)
-        private readonly keywordRepository: Repository<KeywordEntity>,
+        private readonly meetupRepository: MeetupRepository,
+        private readonly keywordRepository: KeywordRepository,
     ) {}
 
-    async findAll(pageOptionDto: PageOptionDto) {
+    public async findAll(pageOptionDto: PageOptionDto): Promise<PageDto> {
         const { sort, order, page, size, ...meetupFields } = pageOptionDto;
 
         const skip = (page - 1) * size;
 
         const [meetups, meetupCount] = await this.meetupRepository.findAndCount(
-            {
-                where: meetupFields,
-                order: {
-                    [sort]: order,
-                },
-                skip,
-                take: size,
-            },
+            sort,
+            order,
+            skip,
+            size,
+            meetupFields,
         );
 
         return new PageDto({
@@ -44,9 +39,9 @@ export class MeetupService {
         });
     }
 
-    async findById(id: number) {
+    public async findById(id: number): Promise<MeetupEntity> {
         try {
-            const meetup = await this.meetupRepository.findOneByOrFail({ id })
+            const meetup = await this.meetupRepository.findOneByOrFail(id);
 
             return meetup;
         } catch {
@@ -54,34 +49,48 @@ export class MeetupService {
         }
     }
 
-    async registrationNewMeetup(createMeetupDto: CreateMeetupDto) {
+    public async registrationNewMeetup(
+        createMeetupDto: CreateMeetupDto,
+    ): Promise<MeetupEntity> {
         const { keywords, ...meetup } = createMeetupDto;
 
-        const newMeetup = this.meetupRepository.create(meetup);
-        await this.meetupRepository.save(newMeetup);
+        const newMeetup = await this.meetupRepository.createAndSave(meetup);
 
-        const generatedKeywords = generateKeywords(keywords, newMeetup);
-
-        const newKeywords = this.keywordRepository.create(generatedKeywords);
-        await this.keywordRepository.save(newKeywords);
+        await this.generateAndSaveKeywords(keywords, newMeetup);
 
         return this.findById(newMeetup.id);
     }
 
-    async edit(id: number, updateMeetupDto: UpdateMeetupDto) {
+    public async edit(
+        id: number,
+        updateMeetupDto: UpdateMeetupDto,
+    ): Promise<MeetupEntity> {
         const existedMeetup = await this.findById(id);
 
-        const newMeetup = {
+        await this.meetupRepository.createAndSave({
             ...existedMeetup,
             ...updateMeetupDto,
-        };
+        });
 
-        return this.meetupRepository.save(newMeetup);
+        if (updateMeetupDto.keywords.length !== 0) {
+            await this.generateAndSaveKeywords(updateMeetupDto.keywords, existedMeetup);
+        }
+
+        return this.findById(id);
     }
 
-    async remove(id: number) {
+    public async remove(id: number): Promise<MeetupEntity> {
         const meetup = await this.findById(id);
 
         return this.meetupRepository.remove(meetup);
+    }
+
+    private async generateAndSaveKeywords(
+        keywords: string[],
+        meetup: MeetupEntity,
+    ): Promise<KeywordEntity[]> {
+        const generatedKeywords = generateKeywords(keywords, meetup);
+
+        return this.keywordRepository.createAndSave(generatedKeywords);
     }
 }
