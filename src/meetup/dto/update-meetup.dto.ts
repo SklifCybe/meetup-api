@@ -1,4 +1,4 @@
-import { IsOptional } from 'class-validator'
+import { IsOptional } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 
 import { CreateMeetupDto } from './create-meetup.dto';
@@ -10,7 +10,7 @@ export class UpdateMeetupDto extends PartialType(CreateMeetupDto) {
 
     @IsOptional()
     public theme?: MeetupThemes;
-    
+
     @IsOptional()
     public description?: string;
 
