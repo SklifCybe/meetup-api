@@ -18,7 +18,6 @@ import { PageOptionDto } from '../dto/page-option.dto';
 import { MeetupService } from '../service/meetup.service';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
-import { CastingToCommonQuotesPipe } from '../pipe/casting-to-common-quotes.pipe';
 
 @Controller('meetup')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -27,7 +26,7 @@ export class MeetupController {
 
     @Get()
     public async getAll(
-        @Query(CastingToCommonQuotesPipe) pageOptionDto: PageOptionDto,
+        @Query() pageOptionDto: PageOptionDto,
     ): Promise<PageDto> {
         return this.meetupService.findAll(pageOptionDto);
     }
