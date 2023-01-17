@@ -4,9 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import type { FindOptionsWhere } from 'typeorm';
 
-import { Order } from '../constant/order';
+import { Order } from '../../common/constants/order';
 import { MeetupEntity } from '../entity/meetup.entity';
-import { MeetupFields } from '../constant/meetup-fields';
+import { MeetupField } from '../../common/constants/meetup-field';
 
 @Injectable()
 export class MeetupRepository {
@@ -16,7 +16,7 @@ export class MeetupRepository {
     ) {}
 
     public async findAndCount(
-        sort: MeetupFields,
+        sort: MeetupField,
         order: Order,
         skip: number,
         take: number,

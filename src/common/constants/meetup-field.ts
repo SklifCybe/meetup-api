@@ -1,4 +1,4 @@
-export enum MeetupFields {
+export enum MeetupField {
     Id = 'id',
     Name = 'name',
     Theme = 'theme',

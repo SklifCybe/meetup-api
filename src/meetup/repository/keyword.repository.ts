@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { KeywordEntity } from '../entity/keyword.entity';
 
-import type { GeneratedKeywords } from '../../types/generated-keywords';
+import type { GeneratedKeywords } from '../../common/types/generated-keywords';
 
 @Injectable()
 export class KeywordRepository {

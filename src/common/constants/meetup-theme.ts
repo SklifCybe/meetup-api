@@ -1,4 +1,4 @@
-export enum MeetupThemes {
+export enum MeetupTheme {
     FrontEnd = 'frontend',
     BackEnd = 'backend',
     'UI/UX' = 'ui/ux',

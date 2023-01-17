@@ -4,10 +4,10 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Injectable, ForbiddenException } from '@nestjs/common';
 
-import { Token } from '../constant/token';
-import { ErrorMessage } from '../constant/error-message';
+import { Token } from '../../common/constants/token';
+import { ErrorMessage } from '../../common/constants/error-message';
 
-import type { JwtPayload } from '../../types/jwt-payload';
+import type { JwtPayload } from '../../common/types/jwt-payload';
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(

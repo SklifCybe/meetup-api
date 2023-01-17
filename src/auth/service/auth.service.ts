@@ -1,18 +1,17 @@
-import * as bcrypt from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { HttpStatus, Injectable, ForbiddenException } from '@nestjs/common';
 
-import { hash } from '../../utils/hash';
-import { Token } from '../constant/token';
+import { Token } from '../../common/constants/token';
 import { LoginDto } from '../dto/login.dto';
 import { RegistrationDto } from '../dto/registration.dto';
 import { UserService } from '../../user/service/user.service';
 import { ErrorMessage } from '../../common/constants/error-message';
 import { UserRepository } from '../../user/repository/user.repository';
 
-import type { Tokens } from '../../types/tokens';
-import type { JwtPayload } from '../../types/jwt-payload';
+import type { Tokens } from '../../common/types/tokens';
+import type { JwtPayload } from '../../common/types/jwt-payload';
 
 @Injectable()
 export class AuthService {
@@ -58,7 +57,7 @@ export class AuthService {
             },
         );
 
-        const passwordMatches = await bcrypt.compare(
+        const passwordMatches = await compare(
             loginDto.password,
             user.hashedPassword,
         );
@@ -100,8 +99,11 @@ export class AuthService {
             throw new ForbiddenException(ErrorMessage.AccessDenied);
         }
 
-        const refreshTokensMatches = await bcrypt.compare(refreshToken, user.hashedRefreshToken);
-        
+        const refreshTokensMatches = await compare(
+            refreshToken,
+            user.hashedRefreshToken,
+        );
+
         if (!refreshTokensMatches) {
             throw new ForbiddenException(ErrorMessage.AccessDenied);
         }

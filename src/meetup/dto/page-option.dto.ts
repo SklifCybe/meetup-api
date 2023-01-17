@@ -1,20 +1,20 @@
 import { PartialType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
-    IsISO8601,
-    IsOptional,
-    IsString,
+    Max,
+    Min,
     IsInt,
     IsEnum,
-    Min,
-    Max,
+    IsString,
+    IsISO8601,
+    IsOptional,
 } from 'class-validator';
 
-import { Order } from '../constant/order';
-import { DefaultPage } from '../constant/page';
+import { Order } from '../../common/constants/order';
 import { MeetupEntity } from '../entity/meetup.entity';
-import { MeetupThemes } from '../constant/meetup-themes';
-import { MeetupFields } from '../constant/meetup-fields';
+import { DefaultPage } from '../../common/constants/page';
+import { MeetupField } from '../../common/constants/meetup-field';
+import { MeetupTheme } from '../../common/constants/meetup-theme';
 
 export class PageOptionDto extends PartialType(MeetupEntity) {
     @IsOptional()
@@ -27,8 +27,8 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     public readonly name?: string;
 
     @IsOptional()
-    @IsEnum(MeetupThemes)
-    public readonly theme?: MeetupThemes;
+    @IsEnum(MeetupTheme)
+    public readonly theme?: MeetupTheme;
 
     @IsOptional()
     @IsString()
@@ -47,8 +47,8 @@ export class PageOptionDto extends PartialType(MeetupEntity) {
     public readonly location?: string;
 
     @IsOptional()
-    @IsEnum(MeetupFields)
-    public readonly sort?: MeetupFields = MeetupFields.Id;
+    @IsEnum(MeetupField)
+    public readonly sort?: MeetupField = MeetupField.Id;
 
     @IsOptional()
     @Transform(({ value }: { value: string }) => value.toLowerCase())

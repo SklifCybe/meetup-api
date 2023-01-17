@@ -2,7 +2,7 @@ import { Transform } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { KeywordEntity } from './keyword.entity';
-import { MeetupThemes } from '../constant/meetup-themes';
+import { MeetupTheme } from '../../common/constants/meetup-theme';
 
 @Entity()
 export class MeetupEntity {
@@ -12,8 +12,8 @@ export class MeetupEntity {
     @Column()
     public readonly name: string;
 
-    @Column({ type: 'enum', enum: MeetupThemes })
-    public readonly theme: MeetupThemes;
+    @Column({ type: 'enum', enum: MeetupTheme })
+    public readonly theme: MeetupTheme;
 
     @Column()
     public readonly description: string;

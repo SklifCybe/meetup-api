@@ -4,7 +4,7 @@ import { useContainer } from 'class-validator';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
-import { yellowText } from './utils/colors';
+import { yellowText } from './common/utils/colors';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);

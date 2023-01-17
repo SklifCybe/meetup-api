@@ -15,7 +15,7 @@ import { RefreshTokenGuard } from '../../common/guards/refresh-token.guard';
 import { GetCurrentUser } from '../../common/decorators/get-current-user.decorator';
 import { GetCurrentUserId } from '../../common/decorators/get-current-user-id.decorator';
 
-import type { Tokens } from '../../types/tokens';
+import type { Tokens } from '../../common/types/tokens';
 
 @Controller('auth')
 export class AuthController {

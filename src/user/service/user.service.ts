@@ -1,7 +1,7 @@
+import { hash } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable } from '@nestjs/common';
 
-import { hash } from '../../utils/hash';
 import { UserEntity } from '../entity/user.entity';
 import { UserRepository } from '../repository/user.repository';
 

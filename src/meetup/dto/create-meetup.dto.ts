@@ -9,12 +9,12 @@ import {
 } from 'class-validator';
 
 import { MeetupEntity } from '../entity/meetup.entity';
-import { MeetupFields } from '../constant/meetup-fields';
-import { MeetupThemes } from '../constant/meetup-themes';
+import { MeetupField } from '../../common/constants/meetup-field';
+import { MeetupTheme } from '../../common/constants/meetup-theme';
 
 export class CreateMeetupDto extends OmitType(MeetupEntity, [
-    MeetupFields.Id,
-    MeetupFields.Keywords,
+    MeetupField.Id,
+    MeetupField.Keywords,
 ] as const) {
     @IsString()
     @IsNotEmpty()
@@ -22,8 +22,8 @@ export class CreateMeetupDto extends OmitType(MeetupEntity, [
 
     @Type(() => String)
     @Transform(({ value }: { value: string }) => value.toLowerCase())
-    @IsEnum(MeetupThemes)
-    public readonly theme: MeetupThemes;
+    @IsEnum(MeetupTheme)
+    public readonly theme: MeetupTheme;
 
     @IsString()
     @IsNotEmpty()

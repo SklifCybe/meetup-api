@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-import type { JwtPayloadWithRefreshToken } from '../../types/jwt-payload-with-refresh-tokens';
+import type { JwtPayloadWithRefreshToken } from '../types/jwt-payload-with-refresh-tokens';
 
 export const GetCurrentUser = createParamDecorator(
     (

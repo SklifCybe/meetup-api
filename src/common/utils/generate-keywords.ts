@@ -1,4 +1,4 @@
-import { MeetupEntity } from '../meetup/entity/meetup.entity';
+import { MeetupEntity } from '../../meetup/entity/meetup.entity';
 
 import type { GeneratedKeywords } from '../types/generated-keywords';
 

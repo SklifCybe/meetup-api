@@ -3,12 +3,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PageDto } from '../dto/page.dto';
 import { MeetupEntity } from '../entity/meetup.entity';
 import { PageOptionDto } from '../dto/page-option.dto';
-import { ErrorMessage } from '../constant/error-message';
 import { KeywordEntity } from '../entity/keyword.entity';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
-import { generateKeywords } from '../../utils/generate-keywords';
+import { generateKeywords } from '../../common/utils/generate-keywords';
 import { MeetupRepository } from '../repository/meetup.repository';
+import { ErrorMessage } from '../../common/constants/error-message';
 import { KeywordRepository } from '../repository/keyword.repository';
 
 @Injectable()
@@ -45,7 +45,7 @@ export class MeetupService {
 
             return meetup;
         } catch {
-            throw new NotFoundException(ErrorMessage.NotFound);
+            throw new NotFoundException(ErrorMessage.NotFoundMeetup);
         }
     }
 
@@ -73,7 +73,10 @@ export class MeetupService {
         });
 
         if (updateMeetupDto.keywords.length !== 0) {
-            await this.generateAndSaveKeywords(updateMeetupDto.keywords, existedMeetup);
+            await this.generateAndSaveKeywords(
+                updateMeetupDto.keywords,
+                existedMeetup,
+            );
         }
 
         return this.findById(id);
