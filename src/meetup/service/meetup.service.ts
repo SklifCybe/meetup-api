@@ -3,13 +3,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PageDto } from '../dto/page.dto';
 import { MeetupEntity } from '../entity/meetup.entity';
 import { PageOptionDto } from '../dto/page-option.dto';
+import { ErrorMessage } from '../constant/error-message';
+import { KeywordEntity } from '../entity/keyword.entity';
 import { CreateMeetupDto } from '../dto/create-meetup.dto';
 import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 import { generateKeywords } from '../../utils/generate-keywords';
 import { MeetupRepository } from '../repository/meetup.repository';
 import { KeywordRepository } from '../repository/keyword.repository';
-import { ErrorMessageMeetup } from '../constant/error-message-meetup';
-import { KeywordEntity } from '../entity/keyword.entity';
 
 @Injectable()
 export class MeetupService {
@@ -45,7 +45,7 @@ export class MeetupService {
 
             return meetup;
         } catch {
-            throw new NotFoundException(ErrorMessageMeetup.NotFound);
+            throw new NotFoundException(ErrorMessage.NotFound);
         }
     }
 

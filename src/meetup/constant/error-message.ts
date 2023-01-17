@@ -1,3 +1,3 @@
-export enum ErrorMessageMeetup {
+export enum ErrorMessage {
     NotFound = 'Meetup not found',
 }

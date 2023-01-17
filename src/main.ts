@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
+import { useContainer } from 'class-validator';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
@@ -13,6 +14,8 @@ async function bootstrap() {
     app.useGlobalPipes(
         new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
     );
+
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
     await app.listen(process.env.PORT, async () => {
         const url = await app.getUrl();

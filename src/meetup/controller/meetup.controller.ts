@@ -21,6 +21,7 @@ import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 
 @Controller('meetup')
 @UseInterceptors(ClassSerializerInterceptor)
+// todo: create @HttpCode to each endpoint
 export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
