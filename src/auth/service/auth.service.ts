@@ -3,8 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { HttpStatus, Injectable, ForbiddenException } from '@nestjs/common';
 
-import { Token } from '../../common/constants/token';
 import { LoginDto } from '../dto/login.dto';
+import { Token } from '../../common/constants/token';
 import { RegistrationDto } from '../dto/registration.dto';
 import { UserService } from '../../user/service/user.service';
 import { ErrorMessage } from '../../common/constants/error-message';

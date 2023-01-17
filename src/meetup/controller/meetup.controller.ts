@@ -13,6 +13,11 @@ import {
     Query,
     UseInterceptors,
 } from '@nestjs/common';
+import {
+    ApiOkResponse,
+    ApiTags,
+    ApiBearerAuth,
+} from '@nestjs/swagger';
 
 import { PageDto } from '../dto/page.dto';
 import { MeetupEntity } from '../entity/meetup.entity';
@@ -23,9 +28,14 @@ import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 
 @Controller('meetup')
 @UseInterceptors(ClassSerializerInterceptor)
+@ApiTags('Meetup')
+@ApiBearerAuth()
 export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
+    @ApiOkResponse({
+        type: PageDto,
+    })
     @Get()
     @HttpCode(HttpStatus.OK)
     public async getAll(
@@ -34,6 +44,9 @@ export class MeetupController {
         return this.meetupService.findAll(pageOptionDto);
     }
 
+    @ApiOkResponse({
+        type: MeetupEntity,
+    })
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     public async getOneById(
@@ -42,6 +55,9 @@ export class MeetupController {
         return this.meetupService.findById(id);
     }
 
+    @ApiOkResponse({
+        type: MeetupEntity,
+    })
     @Post()
     @HttpCode(HttpStatus.CREATED)
     public async create(
@@ -50,6 +66,9 @@ export class MeetupController {
         return this.meetupService.registrationNewMeetup(createMeetupDto);
     }
 
+    @ApiOkResponse({
+        type: MeetupEntity,
+    })
     @Patch(':id')
     @HttpCode(HttpStatus.OK)
     public async edit(
@@ -59,6 +78,9 @@ export class MeetupController {
         return this.meetupService.edit(id, updateMeetupDto);
     }
 
+    @ApiOkResponse({
+        type: MeetupEntity,
+    })
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
     public async remove(

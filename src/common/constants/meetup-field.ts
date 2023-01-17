@@ -6,5 +6,4 @@ export enum MeetupField {
     Keywords = 'keywords',
     Time = 'time',
     Location = 'location',
-    Test = 'test',
 }

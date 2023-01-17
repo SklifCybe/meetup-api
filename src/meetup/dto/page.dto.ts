@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import { MeetupEntity } from '../entity/meetup.entity';
 
 type PageDtoParameters = {
@@ -8,6 +10,7 @@ type PageDtoParameters = {
 };
 
 export class PageDto {
+    @ApiProperty({ isArray: true, type: MeetupEntity })
     public readonly data: MeetupEntity[];
 
     public readonly meta: {
