@@ -4,6 +4,8 @@ import {
     Controller,
     Delete,
     Get,
+    HttpCode,
+    HttpStatus,
     Param,
     ParseIntPipe,
     Patch,
@@ -21,11 +23,11 @@ import { UpdateMeetupDto } from '../dto/update-meetup.dto';
 
 @Controller('meetup')
 @UseInterceptors(ClassSerializerInterceptor)
-// todo: create @HttpCode to each endpoint
 export class MeetupController {
     constructor(private readonly meetupService: MeetupService) {}
 
     @Get()
+    @HttpCode(HttpStatus.OK)
     public async getAll(
         @Query() pageOptionDto: PageOptionDto,
     ): Promise<PageDto> {
@@ -33,6 +35,7 @@ export class MeetupController {
     }
 
     @Get(':id')
+    @HttpCode(HttpStatus.OK)
     public async getOneById(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<MeetupEntity> {
@@ -40,6 +43,7 @@ export class MeetupController {
     }
 
     @Post()
+    @HttpCode(HttpStatus.CREATED)
     public async create(
         @Body() createMeetupDto: CreateMeetupDto,
     ): Promise<MeetupEntity> {
@@ -47,6 +51,7 @@ export class MeetupController {
     }
 
     @Patch(':id')
+    @HttpCode(HttpStatus.OK)
     public async edit(
         @Param('id', ParseIntPipe) id: number,
         @Body() updateMeetupDto: UpdateMeetupDto,
@@ -55,6 +60,7 @@ export class MeetupController {
     }
 
     @Delete(':id')
+    @HttpCode(HttpStatus.NO_CONTENT)
     public async remove(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<MeetupEntity> {
